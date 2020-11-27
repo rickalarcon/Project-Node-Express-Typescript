@@ -1,9 +1,19 @@
-
-const express = require('express');
-
+/*
+Builing a Rest API
+*/
+//const express = require('express');
+import express, {Request, Response, NextFunction} from 'express';
+import {json} from 'body-parser';
+import todoRoutes from './routes/todos';
 const app = express();
 
-app.list(3000);
+app.use(json());
 
-//var a = [1,2,3,4,5,6,7,8]
-//var b : string = "house";
+app.use('/todos', todoRoutes); //connecting to our running express application
+
+app.use((err: Error,req: Request, res:Response,next: NextFunction) => { 
+res.status(500).json({message: err.message})     
+});
+
+app.listen(3000);
+
