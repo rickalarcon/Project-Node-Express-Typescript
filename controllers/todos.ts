@@ -1,22 +1,25 @@
 /*
-a tipycal middleware from express have request,res,etc
-
-Intead of doing this we can use RequestHandle as a function type and Typescript
+This will point the logic for each ROUTE!
+Note: 
+req.body is a json! then we get the "text" key from the json
+Note:
+-a tipycal middleware from express have request,res,etc
+-Intead of doing this we can use RequestHandle as a function type and Typescript
 will automatically infer that our paramenters have that format! :D
 */
 
+// other way but longer: import {Request, Response, NextFunction} from express   here we can import all the types from express :D
+import {RequestHandler} from 'express'; //this tell our function what function it will be !
 
-import {RequestHandler} from 'express';
-
-import {Todo} from '../models/todo';
+import {Todo} from '../models/todo'; //Todo aspect like a class BUT also like a Type so depend how to use it :) , for our case we will use it as value type!
 const TODOS: Todo[] =[]; //to manage some todos in memory of course
 export const createTodo: RequestHandler = (req,res,next) =>{
-	const text = (req.body as {text:string}).text; //using type casting
+	const text = (req.body as {text:string}).text; //using type casting , old way text = req.body.text but here we dont know what type text is!
 	const newTodo = new Todo(Math.random().toString(), text);
 
 	TODOS.push(newTodo);
 
-
+console.log(TODOS)
 	res.status(201).json({message: 'Created the code.',createdTodo:newTodo});
 };
 
