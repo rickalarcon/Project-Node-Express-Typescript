@@ -5,6 +5,13 @@
 Description: This API allow you to create a list of tasks or to-dos 
 as well as you can delete items in your list
 
+##### Middlewares
+- router.post('/', createTodo);  //createTodo will execute when we get a post request for that path
+- router.get('/',getTodos);
+- router.patch('/:id', updateTodo);  //to update a todo
+- router.delete('/:id',deleteTodo);
+
+
 ##### POSTMAN - API Testing
 
 ######
